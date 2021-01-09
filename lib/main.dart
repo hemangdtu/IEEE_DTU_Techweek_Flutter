@@ -12,13 +12,11 @@ class MyApp extends StatelessWidget {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'IEEE DTU Techweek App',
       routes: {
         '/': (context) => BackdropWidget(child: Homepage()),
         'about': (context) => BackdropWidget(child: AboutPage()),
-        'about_author': (context) => BackdropWidget(
-              child: AboutAuthorPage(),
-            )
+        'about_author': (context) => BackdropWidget(child: AboutAuthorPage())
       },
     );
   }

@@ -14,6 +14,14 @@ int roundNumber = 0;
 int currentValue = 0;
 
 class _HomepageState extends State<Homepage> {
+  void newRound() {
+    setState(() {
+      roundNumber += 1;
+      sliderValue = 50.0;
+      targetValue = Random().nextInt(100);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,10 +62,12 @@ class _HomepageState extends State<Homepage> {
                       activeColor: Colors.amber,
                       inactiveColor: Colors.black,
                       onChanged: (value) {
-                        setState(() {
-                          sliderValue = value;
-                          currentValue = sliderValue.toInt();
-                        });
+                        setState(
+                          () {
+                            sliderValue = value;
+                            currentValue = sliderValue.toInt();
+                          },
+                        );
                       },
                       value: sliderValue,
                     ),
@@ -76,16 +86,20 @@ class _HomepageState extends State<Homepage> {
               ),
               FlatButton(
                 onPressed: () {
-                  return showDialog(
+                  showDialog(
                     context: context,
                     barrierDismissible: true,
                     builder: (BuildContext context) {
                       return SimpleDialog(
-                        title: Text("Your Score: $currentValue"),
+                        title: Text("Your Estimate: $currentValue"),
                         titlePadding: EdgeInsets.all(20),
                       );
                     },
                   );
+                  setState(() {
+                    newRound();
+                  });
+                  return;
                 },
                 color: Colors.amber,
                 child: Text(
@@ -139,11 +153,5 @@ class _HomepageState extends State<Homepage> {
         ),
       ),
     );
-  }
-
-  void newRound() {
-    roundNumber += 1;
-    sliderValue = 50.0;
-    targetValue = Random().nextInt(100);
   }
 }
