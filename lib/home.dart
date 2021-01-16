@@ -16,6 +16,12 @@ int currentValue = 0;
 class _HomepageState extends State<Homepage> {
   void newRound() {
     setState(() {
+      score += (100 -
+              ((currentValue - targetValue) < 0
+                  ? (-1 * (currentValue - targetValue) / targetValue) * 100
+                  : ((currentValue - targetValue) / targetValue) * 100))
+          .toInt();
+      currentValue = sliderValue.toInt();
       roundNumber += 1;
       sliderValue = 50.0;
       targetValue = Random().nextInt(100);
@@ -91,7 +97,10 @@ class _HomepageState extends State<Homepage> {
                     barrierDismissible: true,
                     builder: (BuildContext context) {
                       return SimpleDialog(
-                        title: Text("Your Estimate: $currentValue"),
+                        title: Column(children: [
+                          Text("Your Estimate: $currentValue"),
+                          Text("Press anywhere to continue."),
+                        ]),
                         titlePadding: EdgeInsets.all(20),
                       );
                     },
